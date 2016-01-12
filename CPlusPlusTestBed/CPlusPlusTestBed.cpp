@@ -8,26 +8,34 @@
 #include <iostream>
 #include <algorithm>
 #include <sstream>
+#include <string>
+#include <bitset>
 
 using  namespace std;
 
-int find_gcd(int x, int y){
-	//Write base condition
-	if (x != 0 && y != 0)return find_gcd(y, x%y);
-	else return max(x,y);
+void ConvertToBinary(int n)
+{
+	if (n / 2 != 0) {
+		ConvertToBinary(n / 2);
+	}
+	printf("%d\n", n % 2);
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	std::string s;
-	getline(cin, s);
+	std::string input;
+	getline(cin, input);
 	stringstream is;
-	is << s;
-	int x, y; 
-	is >> x >> y;
-	
-	int gcd = find_gcd(x, y);
-	cout << gcd;
+	is << input;
+	int n; 
+	is >> n;
+
+	for (int i = 0; i < n; i++)
+	{
+		getline(cin, input);
+		int res = stoi(input);
+		ConvertToBinary(res);
+	}
 	return 0;
 }
 
