@@ -7,64 +7,49 @@ using System.Xml.Serialization;
 
 namespace CSharpTestBed
 {
-    class Program
+    abstract class Book
     {
-        class Solution
+
+        protected String title;
+        protected String author;
+
+        public Book(String t, String a)
         {
-            static void Main(String[] args)
-            {
-                String firstName = Console.ReadLine();
-                String lastName = Console.ReadLine();
-                int phone = Int32.Parse(Console.ReadLine());
-                int score = Int32.Parse(Console.ReadLine());
-                Student stu = new Grade(firstName, lastName, phone, score);
-                stu.display();
-                Grade g = (Grade)stu;
-                Console.WriteLine("Grade: " + g.calculate());
-            }
+            title = t;
+            author = a;
+        }
+        public abstract void display();
+
+    }
+
+    class MyBook : Book
+    {
+        private int price;
+
+        public MyBook(String t, String a, int p) : base(t, a)
+        {
+            price = p;
+        }
+
+        public override void display()
+        {
+            Console.WriteLine("Title: {0}", title);
+            Console.WriteLine("Author: {0}", author);
+            Console.WriteLine("Price: {0}", price);
         }
     }
 
-    class Grade : Student
+    class Solution
     {
-        private int score;
-
-        public Grade(String fname, string lname, int p, int s) : base(fname, lname, p)
+        static void Main(String[] args)
         {
-            score = s;
+            String title = "The Alchemist";//Console.ReadLine();
+            String author = "Paulo Coelho";//Console.ReadLine();
+            int price = 248;//Int32.Parse(Console.ReadLine());
+
+            Book new_novel = new MyBook(title, author, price);
+            new_novel.display();
         }
-
-        public char calculate()
-        {
-            if (score < 40) return 'D';
-            if (score >= 40 && score < 60) return 'B';
-            if (score >= 60 && score < 75) return 'A';
-            if (score >= 75 && score < 90) return 'E';
-            if (score >= 90 && score < 100) return 'O';
-            return '';
-        }
-    }
-
-    internal class Student
-    {
-        protected String firstName;
-        protected String lastName;
-        private int phone;
-
-        public Student(String fname, String lname, int p)
-        {
-            firstName = fname;
-            lastName = lname;
-            phone = p;
-
-        }
-
-        public void display()
-        {
-            // display the details of the student
-            Console.WriteLine("First Name: " + firstName + "\nLast Name: " + lastName + "\nPhone: " + phone);
-        }
-
     }
 
 
