@@ -9,56 +9,63 @@ namespace CSharpTestBed
 {
     class Program
     {
-        private static void Main(String[] args)
+        class Solution
         {
-            //Input
-            List<string>input = new List<string>();
-            input.Add("1 1 1 0 0 0");
-            input.Add("0 1 0 0 0 0");
-            input.Add("1 1 1 0 0 0");
-            input.Add("0 0 2 4 4 0");
-            input.Add("0 0 0 2 0 0");
-            input.Add("0 0 1 2 4 0");
-
-            List<List<int>> grid = new List<List<int>>();
-            List<int> row;
-            
-            //Parse input in a 2D list array
-            for (int i = 0; i < 6; i++)
+            static void Main(String[] args)
             {
-                //string input = Console.ReadLine();
-                string[] tokens = input[i].Split(' ');
-                int[] convertedItems = Array.ConvertAll(tokens, int.Parse);
-                row = new List<int>();
-                for (int j = 0; j < 6; j++)
-                {
-                    row.Add(convertedItems[j]);
-                }
-                grid.Add(row);
+                String firstName = Console.ReadLine();
+                String lastName = Console.ReadLine();
+                int phone = Int32.Parse(Console.ReadLine());
+                int score = Int32.Parse(Console.ReadLine());
+                Student stu = new Grade(firstName, lastName, phone, score);
+                stu.display();
+                Grade g = (Grade)stu;
+                Console.WriteLine("Grade: " + g.calculate());
             }
-
-            //Calculate the sum of each "hourglass" structure and select the max
-            int max = -63; //As in spec
-            int sum = 0;
-            for (int r = 0; r < 4; r++)
-            {
-                for (int col = 0; col < 4; col++)
-                {
-                    sum = 0;
-                    for (int k = 0; k < 3; k++)
-                    {
-                        for (int l = 0; l < 3; l++)
-                        {
-                            if (k == 1 && (l == 0 || l == 2)) continue;
-                            sum += grid[col + k][r + l];
-                        }
-                    }
-                    if (sum > max) max = sum;
-                }
-            }
-            Console.WriteLine(max);
         }
     }
 
-    
+    class Grade : Student
+    {
+        private int score;
+
+        public Grade(String fname, string lname, int p, int s) : base(fname, lname, p)
+        {
+            score = s;
+        }
+
+        public char calculate()
+        {
+            if (score < 40) return 'D';
+            if (score >= 40 && score < 60) return 'B';
+            if (score >= 60 && score < 75) return 'A';
+            if (score >= 75 && score < 90) return 'E';
+            if (score >= 90 && score < 100) return 'O';
+            return '';
+        }
+    }
+
+    internal class Student
+    {
+        protected String firstName;
+        protected String lastName;
+        private int phone;
+
+        public Student(String fname, String lname, int p)
+        {
+            firstName = fname;
+            lastName = lname;
+            phone = p;
+
+        }
+
+        public void display()
+        {
+            // display the details of the student
+            Console.WriteLine("First Name: " + firstName + "\nLast Name: " + lastName + "\nPhone: " + phone);
+        }
+
+    }
+
+
 }
