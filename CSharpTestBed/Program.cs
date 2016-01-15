@@ -1,54 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Xml.Serialization;
+using System.Linq;
 
 namespace CSharpTestBed
 {
-    abstract class Book
+    internal class Difference
     {
+        private int [] elements;
+        public int maximumDifference;
 
-        protected String title;
-        protected String author;
-
-        public Book(String t, String a)
+        public Difference(int[] array)
         {
-            title = t;
-            author = a;
-        }
-        public abstract void display();
-
-    }
-
-    class MyBook : Book
-    {
-        private int price;
-
-        public MyBook(String t, String a, int p) : base(t, a)
-        {
-            price = p;
+            elements = new int[array.Length];
+            Array.Copy(array, elements, array.Length);
         }
 
-        public override void display()
+        public void ComputeDifference()
         {
-            Console.WriteLine("Title: {0}", title);
-            Console.WriteLine("Author: {0}", author);
-            Console.WriteLine("Price: {0}", price);
+            maximumDifference = elements.Max() - elements.Min();
         }
     }
 
     class Solution
     {
-        static void Main(String[] args)
+        static void Main(string[] args)
         {
-            String title = "The Alchemist";//Console.ReadLine();
-            String author = "Paulo Coelho";//Console.ReadLine();
-            int price = 248;//Int32.Parse(Console.ReadLine());
+            Convert.ToInt32(Console.ReadLine());
 
-            Book new_novel = new MyBook(title, author, price);
-            new_novel.display();
+            int[] a = Console.ReadLine().Split(' ').Select(x => Convert.ToInt32(x)).ToArray();
+
+            Difference d = new Difference(a);
+
+            d.ComputeDifference();
+
+            Console.Write(d.maximumDifference);
         }
     }
 
