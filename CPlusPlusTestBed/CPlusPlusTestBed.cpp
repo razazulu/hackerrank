@@ -1,6 +1,3 @@
-// CPlusPlusTestBed.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 #include <cmath>
 #include <cstdio>
@@ -10,34 +7,64 @@
 #include <sstream>
 #include <string>
 #include <bitset>
+using namespace std;
 
-using  namespace std;
-
-void ConvertToBinary(int n)
+class Node
 {
-	if (n / 2 != 0) {
-		ConvertToBinary(n / 2);
+public:
+	int data;
+	Node *next;
+	Node(int d){
+		data = d;
+		next = NULL;
 	}
-	printf("%d\n", n % 2);
-}
+};
+
+class Solution{
+public:
+	Node* insert(Node *head, int data)
+	{
+		Node *n = new Node(data);
+
+		if (head == NULL)return n;
+
+		Node *current = head;
+
+		while (current->next != NULL)
+		{
+			current = current->next;
+		}
+
+		current->next = n;
+
+		return head;
+	}
+	
+	void display(Node *head)
+	{
+		Node *start = head;
+		while (start)
+		{
+			cout << start->data << " ";
+			start = start->next;
+		}
+	}
+};
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	std::string input;
-	getline(cin, input);
-	stringstream is;
-	is << input;
-	int n; 
-	is >> n;
-
-	for (int i = 0; i < n; i++)
-	{
-		getline(cin, input);
-		int res = stoi(input);
-		ConvertToBinary(res);
+	Node* head = NULL;
+	Solution mylist;
+	int T, data;
+	cin >> T;
+	while (T-->0){
+		cin >> data;
+		head = mylist.insert(head, data);
 	}
+	mylist.display(head);
 	return 0;
 }
+
 
 
 
