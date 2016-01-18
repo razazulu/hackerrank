@@ -1,38 +1,68 @@
 ﻿using System;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 namespace CSharpTestBed
 {
-    internal class Difference
+    class Node
     {
-        private int [] elements;
-        public int maximumDifference;
-
-        public Difference(int[] array)
+        public int data;
+        public Node next;
+        public Node(int d)
         {
-            elements = new int[array.Length];
-            Array.Copy(array, elements, array.Length);
+            data = d;
+            next = null;
         }
 
-        public void ComputeDifference()
-        {
-            maximumDifference = elements.Max() - elements.Min();
-        }
     }
 
     class Solution
     {
-        static void Main(string[] args)
+        public static Node insert(Node head, int data)
         {
-            Convert.ToInt32(Console.ReadLine());
+            var node = new Node(data);
+            if (head == null)
+            {
+                //This is the first node make it the head
+                return node;
+            }
 
-            int[] a = Console.ReadLine().Split(' ').Select(x => Convert.ToInt32(x)).ToArray();
+            Node current = head;
+            
+            while (current.next != null)
+            {
+                current = current.next;
+            }
+            current.next = node;
+                        
+            return head;
+        }
 
-            Difference d = new Difference(a);
+        public static void display(Node head)
+        {
+            Node start = head;
+            while (start != null)
+            {
+                Console.Write(start.data + " ");
+                start = start.next;
+            }
+        }
 
-            d.ComputeDifference();
+        static void Main(String[] args)
+        {
 
-            Console.Write(d.maximumDifference);
+            Node head = null;
+            int T = 4;//Int32.Parse(Console.ReadLine());
+            int[] input = new int[] {4, 2, 1, 3};
+
+            for(int i = 0; i < input.Length; i++)
+            
+            //while (T --> 0)
+            {
+                int data = input[i];//Int32.Parse(Console.ReadLine());
+                head = insert(head, data);
+            }
+            display(head);
         }
     }
 
