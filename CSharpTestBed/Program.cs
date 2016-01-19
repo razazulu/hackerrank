@@ -1,70 +1,62 @@
 ﻿using System;
-using System.Data.Entity.Core.Objects;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CSharpTestBed
 {
-    class Node
-    {
-        public int data;
-        public Node next;
-        public Node(int d)
-        {
-            data = d;
-            next = null;
-        }
-
-    }
-
     class Solution
     {
-        public static Node insert(Node head, int data)
+        private static void Main(String[] args)
         {
-            var node = new Node(data);
-            if (head == null)
-            {
-                //This is the first node make it the head
-                return node;
-            }
-
-            Node current = head;
+            //Read input
+            int a = Convert.ToInt32(Console.ReadLine());
+            int[] input = Console.ReadLine().Split(' ').Select(x => Convert.ToInt32(x)).ToArray();
             
-            while (current.next != null)
-            {
-                current = current.next;
-            }
-            current.next = node;
-                        
-            return head;
-        }
-
-        public static void display(Node head)
-        {
-            Node start = head;
-            while (start != null)
-            {
-                Console.Write(start.data + " ");
-                start = start.next;
-            }
-        }
-
-        static void Main(String[] args)
-        {
-
-            Node head = null;
-            int T = 4;//Int32.Parse(Console.ReadLine());
-            int[] input = new int[] {4, 2, 1, 3};
-
-            for(int i = 0; i < input.Length; i++)
             
-            //while (T --> 0)
+            //This algorithm crashes one of the test cases?
+            //1. sort the array
+            /*int key = 0;
+            int j = 0;
+
+            for (int i = 0; i < input.Length; i++)
             {
-                int data = input[i];//Int32.Parse(Console.ReadLine());
-                head = insert(head, data);
+                key = input[i];
+                j = i - 1;
+                while (j >= 0 && key < input[j])
+                {
+
+                    input[j + 1] = input[j];
+                    j--;
+                }
+                input[j + 1] = key;
+            }*/
+            Array.Sort(input);
+
+            //Find the minimum absolute difference of pairs in this list
+            //int key = 0;
+            //int j = 0;
+            int min = (int) Math.Pow(10, 7);
+
+            for (int i = 0; i < input.Length - 1; i++)
+            {
+                int res = Math.Abs(input[i + 1] - input[i]);
+                if (res < min) min = res;
             }
-            display(head);
+
+            //Find the pairs that correspond to the min difference
+            List<string> output = new List<string>();
+            for (int i = 0; i < input.Length - 1; i++)
+            {
+                if ((Math.Abs(input[i + 1] - input[i])) == min)
+                {
+                    output.Add(input[i].ToString() + " " + input[i+1].ToString());
+                }
+            }
+
+            foreach (string s in output)
+            {
+                Console.WriteLine(s);
+            }
         }
     }
-
-
 }
