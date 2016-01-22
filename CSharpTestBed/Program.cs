@@ -1,19 +1,27 @@
 ﻿using System;
+using System.Collections;
+using System.Data.Entity.Core.Metadata.Edm;
 
 namespace CSharpTestBed
 {
-    class Solution {
-    
-        static void Main(String[] args)
+    internal class Solution
+    {
+        public static void printArray<T>(T[] input)
         {
-            string s = Console.ReadLine();
-            char[] seperators = new char[12] { '!', '[', ',', '?', '.', '\\', '_', '\'', '@', '+', ']', ' '};
-            string[] res = s.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
-            Console.WriteLine(res.Length);
-            for (int i = 0; i < res.Length; i++)
+            for(int i = 0; i < input.Length; i++)
             {
-                Console.WriteLine(res[i]);
+                Console.WriteLine(input[i]);
             }
         }
+
+        private static void Main(String[] args)
+        {
+            int[] vInt = new int[] {1, 2, 3};
+            string[] vString = new string[] {"Hello", "World"};
+
+            printArray<int>(vInt);
+            printArray<string>(vString);
+        }
+    }
 }
-}
+
