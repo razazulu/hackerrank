@@ -2,33 +2,18 @@
 
 namespace CSharpTestBed
 {
-    public interface AdvancedArithmetic
-    {
-        int divisorSum(int n);
-    }
-
-    class Calculator : AdvancedArithmetic
-    {
-
-        public int divisorSum(int n)
+    class Solution {
+    
+        static void Main(String[] args)
         {
-            int sum = 0;
-            for (int i = 1; i <= n; i++)
+            string s = Console.ReadLine();
+            char[] seperators = new char[12] { '!', '[', ',', '?', '.', '\\', '_', '\'', '@', '+', ']', ' '};
+            string[] res = s.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
+            Console.WriteLine(res.Length);
+            for (int i = 0; i < res.Length; i++)
             {
-                if (n%i == 0) sum += i;
+                Console.WriteLine(res[i]);
             }
-            return sum;
         }
-    }
-
-    internal class Solution
-    {
-        private static void Main(string[] args)
-        {
-            int n = 6;//Int32.Parse(Console.ReadLine());
-            AdvancedArithmetic myCalculator = new Calculator();
-            int sum = myCalculator.divisorSum(n);
-            Console.WriteLine("I implemented: AdvancedArithmetic\n" + sum);
-        }
-    }
+}
 }
