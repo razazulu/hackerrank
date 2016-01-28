@@ -6,79 +6,90 @@ using System.Data.Entity.Core.Objects;
 
 namespace CSharpTestBed
 {
+    internal class Node
+    {
+        public int data;
+        public Node next;
+
+        public Node(int d)
+        {
+            data = d;
+            next = null;
+        }
+    }
+
     internal class Solution
     {
-        class Node
+        public static Node insert(Node head, int data)
         {
-            public Node left, right;
-            public int data;
-            public Node(int data)
-            {
-                this.data = data;
-                left = right = null;
-            }
-        }
+            Node p = new Node(data);
 
-        static Node insert(Node root, int data)
-        {
-            if (root == null)
-            {
-                return new Node(data);
-            }
+
+            if (head == null)
+                head = p;
+            else if (head.next == null)
+                head.next = p;
             else
             {
-                Node cur;
-                if (data <= root.data)
-                {
-                    cur = insert(root.left, data);
-                    root.left = cur;
-                }
-                else
-                {
-                    cur = insert(root.right, data);
-                    root.right = cur;
-                }
-                return root;
+                Node start = head;
+                while (start.next != null)
+                    start = start.next;
+                start.next = p;
+
             }
+            return head;
         }
 
-
-
-        private static void levelOrder(Node root)
+        public static void display(Node head)
         {
-            if (root == null) return;
-
-            Queue<Node> queue = new Queue<Node>();
-
-            queue.Clear();
-            queue.Enqueue(root);
-
-            while (queue.Count != 0)
+            Node start = head;
+            while (start != null)
             {
-                Node temp = queue.Dequeue();
-                Console.Write(temp.data + " ");
-                if (temp.left != null) queue.Enqueue(temp.left);
-                if (temp.right != null) queue.Enqueue(temp.right);
+                Console.Write(start.data + " ");
+                start = start.next;
             }
         }
 
-        static void Main(String[] args)
+        public static Node removeDuplicates(Node head)
         {
-            Node root = null;
-            int[] tree = new int[6] { 3, 5, 4, 7, 2, 1 };
+            if (head == null)
+                return head;
+
+            Node cur = head;
+            while (cur.next !=null)
+            {
+                if (cur.data == cur.next.data)
+                    cur.next = cur.next.next;
+                else
+                    cur = cur.next;
+            }
+            return head;
+        }
+
+        private static void Main(String[] args)
+        {
+
+            Node head = null;
+
+            int[] tree = new int[6] {1, 2, 2, 3, 3, 4};
             for (int i = 0; i < tree.Length; i++)
             {
-                root = insert(root, tree[i]);
+                head = insert(head, tree[i]);
             }
+
             //int T = Int32.Parse(Console.ReadLine());
             //while (T-- > 0)
             //{
             //    int data = Int32.Parse(Console.ReadLine());
-            //    root = insert(root, data);
+            //    head = insert(head, data);
             //}
-            levelOrder(root);
-
+            head = removeDuplicates(head);
+            display(head);
         }
+
     }
+
 }
+    
+
 
