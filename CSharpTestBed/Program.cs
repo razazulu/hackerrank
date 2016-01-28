@@ -1,95 +1,34 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Data.Entity.Core.Objects;
-
-namespace CSharpTestBed
+using System.Data.SQLite;
+using System.IO;
+class Solution
 {
-    internal class Node
+    static void Main(String[] args)
     {
-        public int data;
-        public Node next;
-
-        public Node(int d)
+        //int T = Int32.Parse(Console.ReadLine());
+        //while (T-- > 0)
+        int[] input = new int[3] {12, 5, 7};
+        for(int i = 0; i < input.Length; i++)
         {
-            data = d;
-            next = null;
+            //string test = Console.ReadLine();
+            if (IsPrime(input[i])) Console.WriteLine("Prime");
+            else Console.WriteLine("Not prime");
         }
     }
 
-    internal class Solution
+    private static bool IsPrime(int input)
     {
-        public static Node insert(Node head, int data)
+        int boundary = (int) Math.Floor(Math.Sqrt(input));
+
+        if (input == 1) return false;
+        if (input == 2) return true;
+
+        for (int i = 2; i <= boundary; ++i)
         {
-            Node p = new Node(data);
-
-
-            if (head == null)
-                head = p;
-            else if (head.next == null)
-                head.next = p;
-            else
-            {
-                Node start = head;
-                while (start.next != null)
-                    start = start.next;
-                start.next = p;
-
-            }
-            return head;
+            if (input % i == 0) return false;
         }
 
-        public static void display(Node head)
-        {
-            Node start = head;
-            while (start != null)
-            {
-                Console.Write(start.data + " ");
-                start = start.next;
-            }
-        }
-
-        public static Node removeDuplicates(Node head)
-        {
-            if (head == null)
-                return head;
-
-            Node cur = head;
-            while (cur.next !=null)
-            {
-                if (cur.data == cur.next.data)
-                    cur.next = cur.next.next;
-                else
-                    cur = cur.next;
-            }
-            return head;
-        }
-
-        private static void Main(String[] args)
-        {
-
-            Node head = null;
-
-            int[] tree = new int[6] {1, 2, 2, 3, 3, 4};
-            for (int i = 0; i < tree.Length; i++)
-            {
-                head = insert(head, tree[i]);
-            }
-
-            //int T = Int32.Parse(Console.ReadLine());
-            //while (T-- > 0)
-            //{
-            //    int data = Int32.Parse(Console.ReadLine());
-            //    head = insert(head, data);
-            //}
-            head = removeDuplicates(head);
-            display(head);
-        }
-
+        return true; 
     }
-
 }
-    
-
-
