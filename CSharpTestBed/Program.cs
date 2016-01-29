@@ -1,34 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.IO;
+using System.Data.Entity.Core.Common.CommandTrees;
+using System.Globalization;
+
 class Solution
 {
     static void Main(String[] args)
     {
-        //int T = Int32.Parse(Console.ReadLine());
-        //while (T-- > 0)
-        int[] input = new int[3] {12, 5, 7};
-        for(int i = 0; i < input.Length; i++)
+        DateTime dtActual = DateTime.ParseExact("6 6 2015"/*Console.ReadLine()*/, "dd mm yyyy", CultureInfo.CreateSpecificCulture("en-GB"));
+        //DateTime dtExpected = DateTime.ParseExact("9 6 2015"/*Console.ReadLine()*/, "dd mm yyyy", CultureInfo.InvariantCulture);
+
+        Console.WriteLine(dtActual.Day);
+        Console.WriteLine(dtActual.Month);
+        Console.WriteLine(dtActual.Year);
+
+        /*int fine = 0;
+        if (dtActual > dtExpected)
         {
-            //string test = Console.ReadLine();
-            if (IsPrime(input[i])) Console.WriteLine("Prime");
-            else Console.WriteLine("Not prime");
-        }
-    }
-
-    private static bool IsPrime(int input)
-    {
-        int boundary = (int) Math.Floor(Math.Sqrt(input));
-
-        if (input == 1) return false;
-        if (input == 2) return true;
-
-        for (int i = 2; i <= boundary; ++i)
-        {
-            if (input % i == 0) return false;
+            if (dtActual.Month == dtExpected.Month)
+            {
+                fine = 15* (dtActual.Day - dtExpected.Day);
+            }
+            else if (dtActual.Year != dtExpected.Year)
+            {
+                fine = 10000;
+            }
+            //Same year different month
+            else
+            {
+                fine = 500*(dtActual.Month - dtExpected.Month);
+            }
         }
 
-        return true; 
-    }
+        Console.WriteLine(fine);*/
+        
+
+     }
 }
