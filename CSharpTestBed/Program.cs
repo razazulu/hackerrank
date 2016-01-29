@@ -1,38 +1,70 @@
 ﻿using System;
-using System.Data.Entity.Core.Common.CommandTrees;
-using System.Globalization;
+using System.Collections.Generic;
 
 class Solution
 {
-    static void Main(String[] args)
+    class TestCase
     {
-        DateTime dtActual = DateTime.ParseExact("6 6 2015"/*Console.ReadLine()*/, "dd mm yyyy", CultureInfo.CreateSpecificCulture("en-GB"));
-        //DateTime dtExpected = DateTime.ParseExact("9 6 2015"/*Console.ReadLine()*/, "dd mm yyyy", CultureInfo.InvariantCulture);
+        public int students;
+        public int cancellationThresh;
+        public List<int> arrivalTimes = new List<int>();
 
-        Console.WriteLine(dtActual.Day);
-        Console.WriteLine(dtActual.Month);
-        Console.WriteLine(dtActual.Year);
-
-        /*int fine = 0;
-        if (dtActual > dtExpected)
+        public TestCase(string input1, string input2)
         {
-            if (dtActual.Month == dtExpected.Month)
+            string[] tokens = input1.Split(' ');
+            int[] convertedItems = Array.ConvertAll<string, int>(tokens, int.Parse);
+            students = convertedItems[0];
+            cancellationThresh = convertedItems[1];
+
+            tokens = null;
+            convertedItems = null;
+
+            tokens = input2.Split(' ');
+            convertedItems = Array.ConvertAll(tokens, int.Parse);
+
+            for (int i = 0; i < students; i++)
             {
-                fine = 15* (dtActual.Day - dtExpected.Day);
+                arrivalTimes.Add(convertedItems[i]);
             }
-            else if (dtActual.Year != dtExpected.Year)
-            {
-                fine = 10000;
-            }
-            //Same year different month
-            else
-            {
-                fine = 500*(dtActual.Month - dtExpected.Month);
-            }
+
         }
+    }
 
-        Console.WriteLine(fine);*/
-        
+    private static void Main(String[] args)
+    {
+        List<TestCase> testCases = new List<TestCase>();
+        List<string> output = new List<string>();
+        //var num_tests = Console.ReadLine();
+        //output.Add(num_tests);
+        //int t = Int32.Parse(num_tests);
 
-     }
+        testCases.Add(new TestCase("3 2", "-1 0 1"));
+        /*while (t -- > 0)
+        {
+            string inputLine1 = Console.ReadLine();
+            output.Add(inputLine1);
+            string inputLine2 = Console.ReadLine();
+            output.Add(inputLine2);
+            testCases.Add(new TestCase(inputLine1, inputLine2));
+        }*/
+
+        //Print the input
+        foreach(string s in output)Console.WriteLine(s);
+        //Test the test cases and print output
+        foreach (TestCase test in testCases)
+        {
+            if(ClassCancelled(test))Console.WriteLine("YES");
+            else Console.WriteLine("NO");
+        }
+    }
+
+    static bool ClassCancelled(TestCase test)
+    {
+        int studentsPresent = 0;
+        for (int i = 0; i < test.students; i++)
+        {
+            if (test.arrivalTimes[i] <= 0) studentsPresent++;
+        }
+        return studentsPresent < test.cancellationThresh;
+    }
 }
